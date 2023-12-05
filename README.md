@@ -1,8 +1,6 @@
-# Getting Started with Create React App
+# Space-X Launches
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## Running the project
 
 In the project directory, you can run:
 
