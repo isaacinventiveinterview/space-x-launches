@@ -1,14 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
-import {
-  AccordionDetails,
-  AccordionSummary,
-  CircularProgress,
-  ImageList,
-  ImageListItem,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { AccordionDetails, AccordionSummary, CircularProgress, Tooltip, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
@@ -20,6 +12,7 @@ import { sortObjectsByTime } from "../utils/SortUtils";
 import { theme } from "../theme";
 import { Launch } from "../types.tsx/LaunchTypes";
 import { LAUNCHES_QUERY } from "../graphql/queries";
+import ImageGrid from "../components/ImageGrid";
 
 const LaunchesPage = () => {
   const { data: launchData, loading: launchLoading, error: launchError } = useQuery(LAUNCHES_QUERY);
@@ -75,24 +68,15 @@ const LaunchesPage = () => {
               </AccordionSummary>
               <AccordionDetails>
                 {launch.details && <Typography variant="body1">{`Details: ${launch.details}`}</Typography>}
-                <Typography variant="body1">{`Rocket: ${launch.rocket.rocket_name}, ${
-                  launch.rocket?.fairings?.recovered ? "was recovered" : "was not recovered"
-                }`}</Typography>
+                <Typography variant="body1">
+                  {`Rocket: ${launch.rocket.rocket_name}, ${
+                    launch.rocket?.fairings?.recovered ? "was recovered" : "was not recovered"
+                  }`}
+                </Typography>
                 {launch.links.flickr_images.length > 0 && (
                   <>
                     <Typography variant="body1">{"Photos:"}</Typography>
-                    <ImageList sx={{ width: 500, height: 300 }} cols={3} rowHeight={164}>
-                      {launch.links.flickr_images.map((item, idx) => (
-                        <ImageListItem key={item}>
-                          <img
-                            srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                            alt={`Number ${idx} of launch: ${launch.mission_name}`}
-                            loading="lazy"
-                          />
-                        </ImageListItem>
-                      ))}
-                    </ImageList>
+                    <ImageGrid images={launch.links.flickr_images} setName={launch.mission_name} />
                   </>
                 )}
               </AccordionDetails>
