@@ -6,9 +6,9 @@ const black = "#282828";
 const palette: PaletteOptions = {
   common: { black, white },
   primary: {
-    dark: "#D4D6D9",
+    dark: "#848484",
     main: "#1C1F22",
-    light: white,
+    light: "#F4F6F8",
   },
   secondary: {
     contrastText: white,
@@ -27,6 +27,9 @@ const palette: PaletteOptions = {
     main: "#C1170A",
     dark: "#C1170A",
     contrastText: white,
+  },
+  background: {
+    default: "#F4F6F8",
   },
 };
 
